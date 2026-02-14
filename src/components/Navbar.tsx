@@ -13,6 +13,9 @@ export default function Navbar() {
           <span className="text-xl font-bold text-gray-800">Fare Compare</span>
         </div>
         <div className="flex gap-6 text-sm font-medium text-gray-600">
+          <Link href="/login" className="hover:text-gray-900">
+            Sign in
+          </Link>
           <Link href="#" className="hover:text-gray-900">
             History
           </Link>
