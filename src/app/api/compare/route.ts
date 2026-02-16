@@ -15,8 +15,17 @@ export async function POST(request: NextRequest) {
     }
 
     const route = await getRouteInfo(origin, destination);
-    const distanceMeters = route?.distanceMeters ?? 8200;
-    const durationMinutes = route ? route.durationSeconds / 60 : 25;
+
+if (!route) {
+  return NextResponse.json(
+    { error: "Could not calculate route. Try a valid location." },
+    { status: 400 }
+  );
+}
+
+const distanceMeters = route.distanceMeters;
+const durationMinutes = route.durationSeconds / 60;
+
 
     const results = calculateFares(distanceMeters, durationMinutes);
     if (route) {

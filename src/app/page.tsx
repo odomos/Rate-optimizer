@@ -13,36 +13,59 @@ const FAKE_RESULTS: FareResult[] = [
 ];
 
 export default function Home() {
-  const [results, setResults] = useState<FareResult[]>(FAKE_RESULTS);
+  // ✅ start empty so UI ONLY updates from API
+  const [results, setResults] = useState<FareResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedProvider, setSelectedProvider] = useState<string | null>("Rapido");
+  const [selectedProvider, setSelectedProvider] = useState<string | null>(null);
 
-  const bestDeal = results.length > 0
-    ? results.reduce((min, r) => (r.price < min.price ? r : min))
-    : null;
+  const bestDeal =
+    results.length > 0
+      ? results.reduce((min, r) => (r.price < min.price ? r : min))
+      : null;
 
   async function handleCompare(data: LocationInput) {
-    setIsLoading(true);
+  setIsLoading(true);
+
+  try {
+    const res = await fetch("/api/compare", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    // read raw response first (important)
+    const text = await res.text();
+
+    let json: any = {};
     try {
-      const res = await fetch("/api/compare", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      const json = await res.json();
-      if (res.ok && json.results?.length) {
-        setResults(json.results);
-        const cheapest = json.results.reduce((min: FareResult, r: FareResult) =>
-          r.price < min.price ? r : min
-        );
-        setSelectedProvider(cheapest.provider);
-      }
+      json = text ? JSON.parse(text) : {};
     } catch {
-      setResults(FAKE_RESULTS);
-    } finally {
-      setIsLoading(false);
+      json = { raw: text };
     }
+
+    if (!res.ok) {
+      console.error("Compare API failed:", res.status, json);
+      return;
+    }
+
+    if (json.results?.length) {
+      setResults(json.results);
+
+      const cheapest = json.results.reduce((min: FareResult, r: FareResult) =>
+        r.price < min.price ? r : min
+      );
+      setSelectedProvider(cheapest.provider);
+    } else {
+      console.error("Compare API returned no results:", json);
+    }
+
+  } catch (err) {
+    console.error("Compare failed:", err);
+  } finally {
+    setIsLoading(false);
   }
+}
+
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -80,6 +103,13 @@ export default function Home() {
               />
             ))}
           </div>
+
+          {/* ✅ helpful message when nothing yet */}
+          {results.length === 0 && (
+            <p className="mt-6 text-center text-gray-500">
+              Enter pickup and drop locations, then click <b>Compare Prices</b>.
+            </p>
+          )}
         </section>
 
         {/* Footer CTA */}
