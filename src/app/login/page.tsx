@@ -14,16 +14,17 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-6">
-      <div className="w-full max-w-sm rounded-xl border border-gray-200 bg-white p-8 shadow-sm">
-        <h1 className="mb-2 text-center text-2xl font-bold text-gray-900">Sign in</h1>
-        <p className="mb-6 text-center text-sm text-gray-500">
+    <main className="relative flex min-h-screen flex-col items-center justify-center bg-slate-950 px-6">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(16,185,129,0.12),transparent)]" aria-hidden />
+      <div className="relative z-10 w-full max-w-sm rounded-2xl border border-slate-700/50 bg-slate-800/80 p-8 shadow-2xl backdrop-blur-sm">
+        <h1 className="mb-2 text-center text-2xl font-bold text-slate-100">Sign in</h1>
+        <p className="mb-6 text-center text-sm text-slate-400">
           Use your Google account to continue
         </p>
         <button
           type="button"
           onClick={handleSignIn}
-          className="w-full rounded-lg bg-gray-900 px-4 py-3 font-medium text-white transition hover:bg-gray-800"
+          className="w-full rounded-xl bg-emerald-500 py-3 font-semibold text-slate-900 shadow-lg shadow-emerald-500/25 transition hover:bg-emerald-400 hover:shadow-emerald-500/30"
         >
           Sign in with Google
         </button>

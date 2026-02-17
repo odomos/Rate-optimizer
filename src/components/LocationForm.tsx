@@ -11,7 +11,7 @@ interface LocationFormProps {
 function MapPinIcon() {
   return (
     <svg
-      className="h-5 w-5 shrink-0 text-gray-400"
+      className="h-5 w-5 shrink-0 text-emerald-400"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -30,7 +30,7 @@ function MapPinIcon() {
 function FlagIcon() {
   return (
     <svg
-      className="h-5 w-5 shrink-0 text-red-500"
+      className="h-5 w-5 shrink-0 text-rose-400"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -48,7 +48,7 @@ function FlagIcon() {
 function ArrowRightIcon() {
   return (
     <svg
-      className="h-5 w-5 shrink-0 text-red-500"
+      className="h-5 w-5 shrink-0 text-cyan-400"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -83,7 +83,7 @@ export default function LocationForm({ onSubmit, isLoading = false }: LocationFo
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-2xl">
       <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-3">
-        <div className="flex w-full flex-1 items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm focus-within:ring-2 focus-within:ring-emerald-500/30">
+        <div className="flex w-full flex-1 items-center gap-2 rounded-xl border border-slate-600/50 bg-slate-800/60 px-4 py-3 shadow-lg ring-1 ring-slate-700/50 transition focus-within:border-emerald-500/50 focus-within:ring-2 focus-within:ring-emerald-500/30">
           <MapPinIcon />
           <input
             id="origin"
@@ -92,7 +92,7 @@ export default function LocationForm({ onSubmit, isLoading = false }: LocationFo
             value={origin}
             onChange={(e) => setOrigin(e.target.value)}
             placeholder="Enter Pickup Location"
-            className="min-w-0 flex-1 bg-transparent text-gray-900 placeholder-gray-400 outline-none"
+            className="min-w-0 flex-1 bg-transparent text-slate-100 placeholder-slate-500 outline-none"
             disabled={isLoading}
             autoComplete="off"
           />
@@ -102,7 +102,7 @@ export default function LocationForm({ onSubmit, isLoading = false }: LocationFo
           <ArrowRightIcon />
         </div>
 
-        <div className="flex w-full flex-1 items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm focus-within:ring-2 focus-within:ring-emerald-500/30">
+        <div className="flex w-full flex-1 items-center gap-2 rounded-xl border border-slate-600/50 bg-slate-800/60 px-4 py-3 shadow-lg ring-1 ring-slate-700/50 transition focus-within:border-emerald-500/50 focus-within:ring-2 focus-within:ring-emerald-500/30">
           <FlagIcon />
           <input
             id="destination"
@@ -111,20 +111,20 @@ export default function LocationForm({ onSubmit, isLoading = false }: LocationFo
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
             placeholder="Enter Drop Location"
-            className="min-w-0 flex-1 bg-transparent text-gray-900 placeholder-gray-400 outline-none"
+            className="min-w-0 flex-1 bg-transparent text-slate-100 placeholder-slate-500 outline-none"
             disabled={isLoading}
             autoComplete="off"
           />
         </div>
       </div>
 
-      {error && <p className="mt-3 text-center text-sm text-red-600">{error}</p>}
+      {error && <p className="mt-3 text-center text-sm text-rose-400">{error}</p>}
 
       <div className="mt-5 flex justify-center">
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full rounded-xl bg-emerald-600 px-8 py-3 font-semibold text-white shadow-md transition hover:bg-emerald-700 disabled:opacity-50 sm:w-auto"
+          className="w-full rounded-xl bg-emerald-500 px-8 py-3 font-semibold text-slate-900 shadow-lg shadow-emerald-500/25 transition hover:bg-emerald-400 hover:shadow-emerald-500/30 disabled:opacity-50 sm:w-auto"
         >
           {isLoading ? "Comparing..." : "Compare Prices"}
         </button>

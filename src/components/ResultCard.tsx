@@ -20,15 +20,18 @@ function CrownIcon({ className }: { className?: string }) {
 
 export default function ResultCard({ result, isBestDeal, isSelected, onSelect }: ResultCardProps) {
   const iconPath = result.icon ? `/icons/${result.icon}` : null;
-  const cardBg = isBestDeal || isSelected ? "bg-amber-50 border-amber-200" : "bg-white border-gray-200";
+  const isHighlight = isBestDeal || isSelected;
+  const cardBg = isHighlight
+    ? "bg-slate-800/80 border-amber-500/50 shadow-lg shadow-amber-500/10"
+    : "bg-slate-800/60 border-slate-600/50";
 
   return (
     <div
-      className={`flex flex-col rounded-xl border-2 p-5 shadow-sm transition ${cardBg}`}
+      className={`flex flex-col rounded-xl border-2 p-5 shadow-lg backdrop-blur-sm transition ${cardBg}`}
     >
       <div className="mb-3 flex items-center gap-2">
         {iconPath ? (
-          <div className="relative h-12 w-12 overflow-hidden rounded-full bg-gray-100">
+          <div className="relative h-12 w-12 overflow-hidden rounded-full bg-slate-700/80 ring-2 ring-slate-600/50">
             <Image
               src={iconPath}
               alt={result.provider}
@@ -43,45 +46,45 @@ export default function ResultCard({ result, isBestDeal, isSelected, onSelect }:
               }}
             />
             <span
-              className="absolute inset-0 hidden items-center justify-center text-lg font-bold text-gray-600"
+              className="absolute inset-0 hidden items-center justify-center text-lg font-bold text-slate-400"
               style={{ display: "none" }}
             >
               {result.provider[0]}
             </span>
           </div>
         ) : (
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-lg font-bold text-gray-600">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-700/80 text-lg font-bold text-slate-400 ring-2 ring-slate-600/50">
             {result.provider[0]}
           </div>
         )}
         <div>
-          <p className="flex items-center gap-1.5 font-bold text-gray-900">
+          <p className="flex items-center gap-1.5 font-bold text-slate-100">
             {result.provider}
             {isBestDeal && (
-              <span className="text-amber-500">
+              <span className="text-amber-400">
                 <CrownIcon />
               </span>
             )}
           </p>
-          {result.duration && (
-            <p className="text-sm text-gray-500">Est. Time: {result.duration.replace("~", "")}</p>
-          )}
+          <p className="text-sm text-slate-400">Est. Time: {result.duration.replace("~", "")}</p>
         </div>
       </div>
-      <p className="mb-4 text-2xl font-bold text-gray-900">₹{result.price}</p>
-      <button
-        type="button"
+      <p className="mb-4 text-2xl font-bold text-slate-100">Rs {result.price}</p>
+      <a
+        href={result.bookingUrl || "#"}
+        target="_blank"
+        rel="noreferrer"
         onClick={onSelect}
-        className={`mt-auto rounded-lg px-4 py-2 text-sm font-semibold transition ${
+        className={`mt-auto rounded-lg px-4 py-2 text-center text-sm font-semibold transition ${
           isSelected
-            ? "bg-amber-400 text-gray-900"
-            : isBestDeal
-              ? "bg-amber-400 text-gray-900 hover:bg-amber-500"
-              : "bg-gray-800 text-white hover:bg-gray-700"
+            ? "bg-amber-400 text-slate-900 shadow-md shadow-amber-500/20"
+            : isHighlight
+              ? "bg-amber-500/90 text-slate-900 hover:bg-amber-400 shadow-md shadow-amber-500/20"
+              : "bg-slate-700 text-slate-100 hover:bg-slate-600 ring-1 ring-slate-600"
         }`}
       >
-        {isSelected ? "Selected ✓" : "Select"}
-      </button>
+        Book Now
+      </a>
     </div>
   );
 }

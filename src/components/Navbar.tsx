@@ -2,24 +2,24 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="border-b border-gray-200 bg-white px-6 py-4 shadow-sm">
+    <nav className="relative z-10 border-b border-slate-700/50 bg-slate-900/80 px-6 py-4 shadow-lg backdrop-blur-sm">
       <div className="mx-auto flex max-w-5xl items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="flex gap-1">
-            <span className="h-2.5 w-2.5 rounded-full bg-red-500" />
-            <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+            <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.5)]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
           </div>
-          <span className="text-xl font-bold text-gray-800">Fare Compare</span>
+          <span className="text-xl font-bold text-slate-100">Fare Compare</span>
         </div>
-        <div className="flex gap-6 text-sm font-medium text-gray-600">
-          <Link href="/login" className="hover:text-gray-900">
+        <div className="flex gap-6 text-sm font-medium text-slate-400">
+          <Link href="/login" className="transition hover:text-emerald-400">
             Sign in
           </Link>
-          <Link href="#" className="hover:text-gray-900">
+          <Link href="#" className="transition hover:text-slate-200">
             History
           </Link>
-          <Link href="#" className="hover:text-gray-900">
+          <Link href="/about" className="transition hover:text-slate-200">
             About
           </Link>
         </div>

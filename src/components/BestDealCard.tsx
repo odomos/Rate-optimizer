@@ -20,14 +20,14 @@ export default function BestDealCard({ result }: BestDealCardProps) {
   const duration = result.duration?.replace("~", "") ?? "—";
 
   return (
-    <div className="rounded-xl border-2 border-amber-200 bg-amber-50 p-6 shadow-md">
-      <div className="mb-4 inline-block rounded bg-amber-200 px-3 py-1 text-sm font-semibold text-amber-900">
+    <div className="rounded-xl border-2 border-amber-500/50 bg-slate-800/80 p-6 shadow-xl shadow-amber-500/10 backdrop-blur-sm">
+      <div className="mb-4 inline-block rounded-lg bg-amber-500/20 px-3 py-1.5 text-sm font-semibold text-amber-300 ring-1 ring-amber-500/30">
         Best Deal for You!
       </div>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           {iconPath ? (
-            <div className="relative h-14 w-14 overflow-hidden rounded-full bg-white shadow">
+            <div className="relative h-14 w-14 overflow-hidden rounded-full bg-slate-700/80 shadow-lg ring-2 ring-slate-600/50">
               <Image
                 src={iconPath}
                 alt={result.provider}
@@ -42,31 +42,33 @@ export default function BestDealCard({ result }: BestDealCardProps) {
                 }}
               />
               <span
-                className="absolute inset-0 hidden items-center justify-center text-xl font-bold text-gray-600"
+                className="absolute inset-0 hidden items-center justify-center text-xl font-bold text-slate-400"
                 style={{ display: "none" }}
               >
                 {result.provider[0]}
               </span>
             </div>
           ) : (
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-xl font-bold text-gray-600 shadow">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-700/80 text-xl font-bold text-slate-400 shadow-lg ring-2 ring-slate-600/50">
               {result.provider[0]}
             </div>
           )}
           <div>
-            <p className="flex items-center gap-2 text-xl font-bold text-gray-900">
+            <p className="flex items-center gap-2 text-xl font-bold text-slate-100">
               {result.provider}
-              <span className="text-amber-600">
+              <span className="text-amber-400">
                 <CrownIcon />
               </span>
             </p>
-            <p className="text-3xl font-bold text-gray-900">₹{result.price}</p>
-            <p className="text-sm text-gray-500">Estimated Time: {duration}</p>
+            <p className="text-3xl font-bold text-slate-100">₹{result.price}</p>
+            <p className="text-sm text-slate-400">Estimated Time: {duration}</p>
           </div>
         </div>
         <a
-          href="#"
-          className="inline-flex items-center gap-1 rounded-lg bg-amber-400 px-5 py-2.5 font-semibold text-gray-900 transition hover:bg-amber-500"
+          href={result.bookingUrl || "#"}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-1 rounded-lg bg-amber-400 px-5 py-2.5 font-semibold text-slate-900 shadow-lg shadow-amber-500/25 transition hover:bg-amber-300"
         >
           Book Now
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

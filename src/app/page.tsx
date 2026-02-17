@@ -6,11 +6,9 @@ import ResultCard from "@/components/ResultCard";
 import BestDealCard from "@/components/BestDealCard";
 import type { FareResult, LocationInput } from "@/types";
 
-const FAKE_RESULTS: FareResult[] = [
-  { provider: "Uber", price: 245, duration: "~15 min", distance: "8.2 km", icon: "uber.png" },
-  { provider: "Ola", price: 231, duration: "~14 min", distance: "8.2 km", icon: "ola.png" },
-  { provider: "Rapido", price: 198, duration: "~12 min", distance: "8.2 km", icon: "rapido.png" },
-];
+type CompareApiResponse = {
+  results: FareResult[];
+};
 
 export default function Home() {
   // ✅ start empty so UI ONLY updates from API
@@ -33,15 +31,7 @@ export default function Home() {
       body: JSON.stringify(data),
     });
 
-    // read raw response first (important)
-    const text = await res.text();
-
-    let json: any = {};
-    try {
-      json = text ? JSON.parse(text) : {};
-    } catch {
-      json = { raw: text };
-    }
+    const json: CompareApiResponse = await res.json();
 
     if (!res.ok) {
       console.error("Compare API failed:", res.status, json);
@@ -68,14 +58,14 @@ export default function Home() {
 
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="relative z-0 min-h-screen bg-slate-950">
       <div className="mx-auto max-w-5xl px-6 py-10">
         {/* Hero */}
         <section className="mb-12 text-center">
-          <h1 className="mb-2 text-3xl font-bold text-gray-900 sm:text-4xl">
+          <h1 className="mb-2 text-3xl font-bold text-slate-100 sm:text-4xl">
             Find the Cheapest Ride Instantly!
           </h1>
-          <p className="mb-8 text-gray-600">
+          <p className="mb-8 text-slate-400">
             Compare fares from Uber, Ola, and Rapido in one click.
           </p>
           <div className="flex justify-center">
@@ -106,16 +96,16 @@ export default function Home() {
 
           {/* ✅ helpful message when nothing yet */}
           {results.length === 0 && (
-            <p className="mt-6 text-center text-gray-500">
-              Enter pickup and drop locations, then click <b>Compare Prices</b>.
+            <p className="mt-6 text-center text-slate-500">
+              Enter pickup and drop locations, then click <b className="text-slate-400">Compare Prices</b>.
             </p>
           )}
         </section>
 
         {/* Footer CTA */}
-        <footer className="rounded-xl border border-gray-200 bg-white py-8 text-center shadow-sm">
-          <p className="text-xl font-bold text-gray-900">Save More on Every Ride</p>
-          <p className="mt-1 text-gray-500">Compare and Choose the Best Option!</p>
+        <footer className="rounded-xl border border-slate-700/50 bg-slate-800/50 py-8 text-center shadow-xl backdrop-blur-sm">
+          <p className="text-xl font-bold text-slate-100">Save More on Every Ride</p>
+          <p className="mt-1 text-slate-400">Compare and Choose the Best Option!</p>
         </footer>
       </div>
     </main>
