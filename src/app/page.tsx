@@ -4,6 +4,8 @@ import { useState } from "react";
 import LocationForm from "@/components/LocationForm";
 import ResultCard from "@/components/ResultCard";
 import BestDealCard from "@/components/BestDealCard";
+import VideoBackground from "@/components/VideoBackground";
+import ChatWidget from "@/components/ChatWidget";
 import type { FareResult, LocationInput } from "@/types";
 
 type CompareApiResponse = {
@@ -58,8 +60,11 @@ export default function Home() {
 
 
   return (
-    <main className="relative z-0 min-h-screen bg-slate-950">
-      <div className="mx-auto max-w-5xl px-6 py-10">
+    <main className="relative isolate min-h-screen text-white">
+      <VideoBackground />
+      <ChatWidget />
+
+      <div className="relative z-10 mx-auto max-w-5xl px-6 py-10">
         {/* Hero */}
         <section className="mb-12 text-center">
           <h1 className="mb-2 text-3xl font-bold text-slate-100 sm:text-4xl">
